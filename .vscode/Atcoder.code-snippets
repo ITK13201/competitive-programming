@@ -1,0 +1,39 @@
+{
+	// Place your Atcoder ワークスペース snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"import atcoder": {
+		"prefix": "import/atcoder",
+		"body": [
+			"import sys\ninput = lambda: sys.stdin.readline().rstrip()\nfrom math import floor,ceil,sqrt,factorial,log\nfrom heapq import heapify, heappop, heappush, heappushpop\nfrom collections import Counter,defaultdict,deque\nfrom itertools import accumulate,permutations,combinations,product,combinations_with_replacement\nfrom bisect import bisect_left,bisect_right\nfrom decimal import Decimal\ninf = float('inf')\nmod = 1000000007\n\n",
+		],
+		"description": "import atcoder templates",
+	},
+	"import Queue": {
+		"prefix": "import/queue",
+		"body": [
+			"class Queue:\n\t# value: list\n\tdef __init__(self, value: list):\n\t\tself.value = deque(value)\n\t\n\tdef push(self, item):\n\t\tself.value.append(item)\n\t\n\tdef pop(self):\n\t\treturn self.value.popleft()\n\t\n\tdef pushpop(self, item):\n\t\tself.value.append(item)\n\t\treturn self.value.popleft()\n\t\n\tdef __call__(self):\n\t\treturn self.value\n\t\n\tdef __len__(self):\n\t\treturn len(self.value)\n\t\n\tdef size(self):\n\t\treturn len(self.value)\n\t\n\tdef empty(self):\n\t\treturn len(self.value) == 0\n\t\n\tdef front(self):\n\t\treturn self.value[0]\n\t\n\tdef back(self):\n\t\treturn self.value(-1)\n\t\n\tdef sorted(self):\n\t\treturn deque(sorted(self.value))\n\n"
+		],
+		"description": "import Queue class",
+	},
+	"import ModInt": {
+		"prefix": "import/modint",
+		"body": [
+			"class ModInt:\n\tdef __init__(self, x):\n\t\tif isinstance(x, ModInt):\n\t\t\tself.value = x.value\n\t\telse:\n\t\t\tself.value = x % MOD\n\t\t\tif self.value < 0:\n\t\t\t\tself.value += MOD\n\t\n\tdef get_mod(self):\n\t\treturn MOD\n\t\n\t# str関数を使用したとき\n\tdef __str__(self):\n\t\treturn str(self.value)\n\t\n\tdef __int__(self):\n\t\treturn self.value\n\t\n\t__index__ = __int__\n\t\n\t# print関数を使用したとき\n\t__repr__ = __str__\n\n\t## 四則演算\n\tdef __add__(self, other):\n\t\treturn ModInt(self.value + ModInt(other).value)\n\t\n\tdef __sub__(self, other):\n\t\treturn ModInt(self.value - ModInt(other).value)\n\n\tdef __mul__(self, other):\n\t\treturn ModInt(self.value * ModInt(other).value)\n\t\n\tdef __truediv__(self, other):\n\t\t# a * a^(p - 2) ≡ 1 (mod p) 逆元から求める\n\t\treturn ModInt(self.value * pow(ModInt(other).value, MOD - 2, MOD))\n\t\n\tdef __floordiv__(self, other):\n\t\treturn ModInt(self.value * pow(ModInt(other).value, MOD - 2, MOD))\n\n\t# 累乗\n\tdef __pow__(self, other):\n\t\treturn ModInt(pow(self.value, ModInt(other).value, MOD))\n\n\t## 四則演算の順序\n\t__radd__ = __add__\n\n\tdef __rsub__(self, other):\n\t\treturn ModInt(other - self.value)\n\t\n\t__rmul__ = __mul__\n\n\tdef __rtruediv__(self, other):\n\t\treturn ModInt(other * pow(self.value, MOD - 2, MOD))\n\n\tdef __rfloordiv__(self, other):\n\t\treturn ModInt(other // self.value)\n\t\n\t# 累乗の順序\n\tdef __rpow__(self, other):\n\t\treturn ModInt(pow(other, self.value, MOD))\n\t\n\t## 不等号\n\tdef __lt__(self, other):\n\t\treturn self.value < ModInt(other).value\n\t\n\tdef __gt__(self, other):\n\t\treturn self.value > ModInt(other).value\n\n\tdef __le__(self, other):\n\t\treturn self.value <= ModInt(other).value\n\t\n\tdef __ge__(self, other):\n\t\treturn self.value >= ModInt(other).value\n\t\n\tdef __eq__(self, other):\n\t\treturn self.value == ModInt(other).value\n\t\n\tdef __ne__(self, other):\n\t\treturn self.value != ModInt(other).value\n\t\n\t## in-place 演算子(+=, -=, *=, /=)\n\tdef __iadd__(self, other):\n\t\tself.value += ModInt(other).value\n\t\tif self.value >= MOD:\n\t\t\tself.value -= MOD\n\t\treturn self.value\n\t\n\tdef __isub__(self, other):\n\t\tself.value -= ModInt(other).value\n\t\tif self.value < 0:\n\t\t\tself.value += MOD\n\t\treturn self.value\n\t\n\tdef __imul__(self, other):\n\t\tself.value = ModInt(self.value * ModInt(other).value)\n\t\treturn self.value\n\n\tdef __itruediv__(self, other):\n\t\tself.value = ModInt(self.value * pow(ModInt(other).value, MOD - 2, MOD))\n\t\treturn self.value\n\t\n\tdef __ifloordiv__(self, other):\n\t\tself.value = ModInt(self.value * pow(ModInt(other).value, MOD - 2, MOD))\n\t\treturn self.value\n\t\n\t# 逆元\n\tdef modinv(self):\n\t\treturn ModInt(pow(self.value, MOD - 2, MOD))\n\n"
+		],
+		"description": "import ModInt class",
+	}
+}

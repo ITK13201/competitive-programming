@@ -1,0 +1,5 @@
+# 同じ単語を同時選択
+Ctrl + Shift + L
+# format
+Ctrl + Alt + F
+
