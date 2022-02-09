@@ -9,7 +9,12 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/current/a.out",
-            "args": [],
+            "args": [
+                "<",
+                "in.txt",
+                ">",
+                "out.txt"
+            ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
